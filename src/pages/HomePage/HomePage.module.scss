@@ -1,0 +1,80 @@
+.homePage {
+  display: flex;
+  flex-direction: column;
+  margin-top: 32px;
+  margin-bottom: 32px;
+  border-radius: 30px;
+  background: #f03f3b;
+  width: 100%;
+  height: 90vh;
+}
+.headerNav {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 96px;
+  padding-right: 96px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(251, 251, 251, 0.4);
+  .logo {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 117%;
+    letter-spacing: -0.02em;
+  }
+}
+.navList {
+  display: flex;
+  gap: 40px;
+}
+
+.btnContainer {
+  display: flex;
+  gap: 8px;
+
+  .loginBtn {
+    border: 1px solid rgba(251, 251, 251, 0.4);
+    border-radius: 30px;
+    padding: 14px 39px;
+  }
+
+  .regBtn {
+    border-radius: 30px;
+    padding: 14px 40px;
+    background: #f03f3b;
+  }
+}
+
+.heroSection {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  align-items: center;
+  padding: 0 96px;
+}
+.heroContent {
+  h1 {
+    width: 530px;
+    font-weight: 500;
+    font-size: 70px;
+    line-height: 100%;
+    margin-bottom: 28px;
+  }
+  p {
+    width: 100%;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 107%;
+    letter-spacing: -0.02em;
+    margin-bottom: 64px;
+  }
+  .getStarted {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 120%;
+    border: 1px solid rgba(251, 251, 251, 0.4);
+    border-radius: 30px;
+    padding: 18px 50px;
+  }
+}
