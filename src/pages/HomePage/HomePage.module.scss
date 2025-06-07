@@ -57,12 +57,6 @@
   }
 }
 
-.getStarted {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
 .heroSection {
   display: flex;
   justify-content: space-between;
@@ -89,6 +83,10 @@
     margin-bottom: 64px;
   }
   .getStarted {
+    width: 250px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
     font-weight: 500;
     font-size: 20px;
     line-height: 120%;

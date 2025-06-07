@@ -1,5 +1,6 @@
 import css from "./HomePage.module.scss";
 import sprite from "../../img/sprite.svg";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
@@ -7,17 +8,17 @@ const HomePage = () => {
       <div className={css.homePagePosition}>
         <nav className={css.headerNav}>
           <div className={css.logoContainer}>
-            <a className={css.logo} href="#">
+            <Link className={css.logo} to="/">
               Nanny.Services
-            </a>
+            </Link>
           </div>
           <div className={css.navAndBtn}>
             <ul className={css.navList}>
               <li>
-                <a href="#">Home</a>
+                <Link to="/">Home</Link>
               </li>
               <li>
-                <a href="#">Nannies</a>
+                <Link to="/nannies">Nannies</Link>
               </li>
             </ul>
             <div className={css.btnContainer}>
@@ -31,14 +32,14 @@ const HomePage = () => {
           <div className={css.heroContent}>
             <h1>Make Life Easier for the Family:</h1>
             <p>Find Babysitters Online for All Occasions</p>
-            <button className={css.getStarted}>
+            <Link to="/nannies" className={css.getStarted}>
               Get started{" "}
               <span>
                 <svg width={20} height={20}>
                   <use href={`${sprite}#rotate-arrow`}></use>
                 </svg>
               </span>
-            </button>
+            </Link>
           </div>
 
           <div className={css.heroImage}>
