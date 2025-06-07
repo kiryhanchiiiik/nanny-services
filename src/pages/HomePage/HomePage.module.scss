@@ -5,9 +5,19 @@
   margin-bottom: 32px;
   border-radius: 30px;
   background: #f03f3b;
-  width: 100%;
+}
+
+.homePagePosition {
+  position: relative;
+  z-index: 1;
   height: 90vh;
 }
+.navAndBtn {
+  display: flex;
+  align-items: center;
+  gap: 92px;
+}
+
 .headerNav {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -24,6 +34,7 @@
     letter-spacing: -0.02em;
   }
 }
+
 .navList {
   display: flex;
   gap: 40px;
@@ -46,14 +57,22 @@
   }
 }
 
+.getStarted {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
 .heroSection {
   display: flex;
   justify-content: space-between;
   flex: 1;
   align-items: center;
-  padding: 0 96px;
+  margin-left: 75px;
+  height: 80vh;
 }
 .heroContent {
+  z-index: 1;
   h1 {
     width: 530px;
     font-weight: 500;
@@ -76,5 +95,57 @@
     border: 1px solid rgba(251, 251, 251, 0.4);
     border-radius: 30px;
     padding: 18px 50px;
+  }
+}
+
+.heroImage {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 699px;
+  height: 100%;
+  flex: 1;
+  border-radius: 0 30px 30px 0;
+  background-image: url("../../img/bg.png");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  flex-direction: row-reverse;
+  z-index: -1;
+}
+
+.nanniesBadge {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fbfbfb;
+  margin-right: 60px;
+  margin-bottom: 40px;
+  padding: 32px;
+  border-radius: 20px;
+}
+.checkIcon {
+  background: #f03f3b;
+  border-radius: 20%;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.expNannie {
+  p {
+    font-weight: 400;
+    font-size: 16px;
+    color: rgba(17, 16, 28, 0.5);
+  }
+  span {
+    font-weight: 700;
+    font-size: 24px;
+    color: #11101c;
   }
 }
