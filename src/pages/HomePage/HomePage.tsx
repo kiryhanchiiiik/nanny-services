@@ -1,43 +1,13 @@
 import css from "./HomePage.module.scss";
 import sprite from "../../img/sprite.svg";
-import { Link, NavLink } from "react-router-dom";
-import clsx from "clsx";
-
-const buildLinkClass = ({ isActive }: { isActive: boolean }) =>
-  clsx(css.linkWrapper, isActive && css.active);
+import { Link } from "react-router-dom";
+import Header from "../../components/Header/Header";
 
 const HomePage = () => {
   return (
     <section className={css.homePage}>
       <div className={css.homePagePosition}>
-        <nav className={css.headerNav}>
-          <div className={css.logoContainer}>
-            <NavLink className={css.logo} to="/">
-              Nanny.Services
-            </NavLink>
-          </div>
-          <div className={css.navAndBtn}>
-            <ul className={css.navList}>
-              <li>
-                <NavLink to="/" className={buildLinkClass}>
-                  Home
-                  <span className={css.dot}></span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/nannies" className={buildLinkClass}>
-                  Nannies
-                  <span className={css.dot}></span>
-                </NavLink>
-              </li>
-            </ul>
-
-            <div className={css.btnContainer}>
-              <button className={css.loginBtn}>Log In</button>
-              <button className={css.regBtn}>Registration</button>
-            </div>
-          </div>
-        </nav>
+        <Header />
 
         <div className={css.heroSection}>
           <div className={css.heroContent}>

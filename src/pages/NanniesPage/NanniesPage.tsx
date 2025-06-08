@@ -1,10 +1,11 @@
 import css from "./NanniesPage.module.scss";
+import Header from "../../components/Header/Header";
 
 const NanniesPage = () => {
   return (
-    <div className={css.nannies}>
-      <h1 style={{ color: " black" }}>Nannies</h1>
-    </div>
+    <section className={css.nannies}>
+      <Header fullWidth theme="white" />
+    </section>
   );
 };
 

@@ -12,6 +12,7 @@
   z-index: 1;
   height: 90vh;
 }
+
 .navAndBtn {
   display: flex;
   align-items: center;
@@ -111,7 +112,7 @@
   align-items: flex-end;
   justify-content: flex-start;
   flex-direction: row-reverse;
-  z-index: -1;
+  z-index: 5;
 }
 
 .nanniesBadge {
