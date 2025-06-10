@@ -4,6 +4,7 @@ import css from "./Header.module.scss";
 import { useState } from "react";
 import Modal from "../Modal/Modal";
 import RegisterForm from "../RegisterForm/RegisterForm";
+import LoginForm from "../LoginForm/LoginForm";
 
 type HeaderProps = {
   fullWidth?: boolean;
@@ -79,7 +80,7 @@ const Header = ({ fullWidth = false, theme = "red" }: HeaderProps) => {
             Welcome back! Please enter your credentials to access your account
             and continue your babysitter search.
           </p>
-          {/* <LoginForm onSuccess={closeLoginModal} /> */}
+          <LoginForm onSuccess={closeLoginModal} />
         </Modal>
       )}
     </header>
