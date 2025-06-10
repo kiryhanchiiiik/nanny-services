@@ -3,6 +3,7 @@ import clsx from "clsx";
 import css from "./Header.module.scss";
 import { useState } from "react";
 import Modal from "../Modal/Modal";
+import RegisterForm from "../RegisterForm/RegisterForm";
 
 type HeaderProps = {
   fullWidth?: boolean;
@@ -65,9 +66,9 @@ const Header = ({ fullWidth = false, theme = "red" }: HeaderProps) => {
           <p className={css.regSubTitle}>
             Thank you for your interest in our platform! In order to register,
             we need some information. Please provide us with the following
-            information
+            information.
           </p>
-          {/* <RegisterForm onSuccess={closeRegisterModal} /> */}
+          <RegisterForm onSuccess={closeRegisterModal} />
         </Modal>
       )}
 
@@ -76,7 +77,7 @@ const Header = ({ fullWidth = false, theme = "red" }: HeaderProps) => {
           <h2 className={css.regTitle}>Log In</h2>
           <p className={css.regSubTitle}>
             Welcome back! Please enter your credentials to access your account
-            and continue your search for an teacher.
+            and continue your babysitter search.
           </p>
           {/* <LoginForm onSuccess={closeLoginModal} /> */}
         </Modal>
