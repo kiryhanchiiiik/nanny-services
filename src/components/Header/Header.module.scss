@@ -123,6 +123,15 @@
   background: white;
   color: #f03f3b;
   border: 1px solid #f03f3b;
+
+  transition: color 350ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover,
+  &:focus {
+    background-color: rgba(240, 63, 59, 0.2);
+    color: #ffffff;
+  }
 }
 
 // ------ modal ---------
