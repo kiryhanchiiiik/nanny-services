@@ -26,9 +26,11 @@ const HomePage = () => {
           <div className={css.heroImage}>
             <div className={css.nanniesBadge}>
               <div className={css.checkIcon}>
-                <svg width={30} height={30}>
-                  <use href={`${sprite}#check`}></use>
-                </svg>
+                <span>
+                  <svg width={30} height={30}>
+                    <use href={`${sprite}#check`}></use>
+                  </svg>
+                </span>
               </div>
               <div className={css.expNannie}>
                 <p>Experienced nannies</p>
