@@ -51,14 +51,16 @@ const NanniesPage = () => {
       <Header fullWidth theme="white" />
       <Filters />
 
-      {nannies.map((nanny) => (
-        <NannieCard
-          key={nanny.name}
-          nanny={nanny}
-          showMore={showMore}
-          toggleReadMore={toggleReadMore}
-        />
-      ))}
+      <ul className={css.teacherList}>
+        {nannies.map((nanny) => (
+          <NannieCard
+            key={nanny.name}
+            nanny={nanny}
+            showMore={showMore}
+            toggleReadMore={toggleReadMore}
+          />
+        ))}
+      </ul>
     </section>
   );
 };

@@ -29,7 +29,7 @@ interface Props {
 }
 
 const NannieCard: React.FC<Props> = ({ nanny, showMore, toggleReadMore }) => {
-  const index = nanny.name.length; // 👈 временно, либо передавай `index` как проп
+  const index = nanny.name.length;
 
   return (
     <li className={css.teachersContainerItem}>
@@ -50,7 +50,7 @@ const NannieCard: React.FC<Props> = ({ nanny, showMore, toggleReadMore }) => {
         <div className={css.descWrapper}>
           <div className={css.teacherDesc}>
             <div className={css.teacherName}>
-              <p>About nanny</p>
+              <p>Nanny</p>
               <h3>{nanny.name}</h3>
             </div>
 
