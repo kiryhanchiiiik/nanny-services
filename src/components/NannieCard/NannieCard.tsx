@@ -53,22 +53,46 @@ const NannieCard: React.FC<Props> = ({ nanny, showMore, toggleReadMore }) => {
               <p>Nanny</p>
               <h3>{nanny.name}</h3>
             </div>
-
-            <div className={css.teacherAchieve}>
-              <p className={css.flexGap}>
-                <span>
-                  <svg width={16} height={16}>
-                    <use href={`${sprite}#star`}></use>
+            {/* {} */}
+            <div className={css.wrapperImgAndAchieve}>
+              <div className={css.teacherAchieve}>
+                <p className={css.flexGap}>
+                  <span>
+                    <svg width={16} height={16}>
+                      <use href={`${sprite}#map`}></use>
+                    </svg>
+                  </span>
+                  {nanny.location}
+                </p>
+                <span className={css.line}></span>
+                <p className={css.flexGap}>
+                  <span>
+                    <svg width={16} height={16}>
+                      <use href={`${sprite}#star`}></use>
+                    </svg>
+                  </span>
+                  Rating: {nanny.rating}
+                </p>
+                <span className={css.line}></span>
+                <p>
+                  Price / 1 hour:{" "}
+                  <span className={css.priceColor}>
+                    {nanny.price_per_hour}$
+                  </span>
+                </p>
+              </div>
+              <div className={css.ImgHeart}>
+                <button
+                  type="button"
+                  // onClick={() => toggleFavorite(teacher, index)}
+                >
+                  <svg width={27} height={27}>
+                    <use href={`${sprite}#${"heart"}`}></use>
                   </svg>
-                </span>
-                Rating: {nanny.rating}
-              </p>
-              <span className={css.line}></span>
-              <p>
-                Price / 1 hour:{" "}
-                <span className={css.priceColor}>{nanny.price_per_hour}$</span>
-              </p>
+                </button>
+              </div>
             </div>
+            {/* {} */}
           </div>
 
           <div className={css.teacherInfo}>
@@ -87,6 +111,8 @@ const NannieCard: React.FC<Props> = ({ nanny, showMore, toggleReadMore }) => {
               <p className={css.infoWrapper}>{nanny.location}</p>
             </div>
 
+            <p className={css.moreInfoDesc}>{nanny.about}</p>
+
             {showMore !== index && (
               <button
                 className={css.readMoreBtn}
@@ -98,7 +124,6 @@ const NannieCard: React.FC<Props> = ({ nanny, showMore, toggleReadMore }) => {
 
             {showMore === index && (
               <div className={css.moreInfo}>
-                <p className={css.moreInfoDesc}>{nanny.about}</p>
                 <ul className={css.moreInfoList}>
                   {nanny.reviews.map((review, idx) => (
                     <li key={idx}>
