@@ -3,6 +3,7 @@
 body {
   font-family: "Roboto", sans-serif;
   background-color: #f3f3f3;
+  overflow-x: clip;
 }
 
 button {
@@ -16,4 +17,8 @@ button {
 
 p {
   color: #121417;
+}
+
+* {
+  outline: 1px solid red;
 }

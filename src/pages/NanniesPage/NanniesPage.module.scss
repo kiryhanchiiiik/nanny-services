@@ -44,7 +44,8 @@
 }
 
 .teacherList {
-  width: 1184px;
+  max-width: 1184px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 32px;
