@@ -15,7 +15,7 @@ interface Nannie {
   about: string;
   avatar_url: string;
   birthday: string;
-  characters: string;
+  characters: string[];
   education: string;
   experience: string;
   kids_age: string;
@@ -25,7 +25,6 @@ interface Nannie {
   rating: number;
   reviews: Review[];
 }
-
 const NanniesPage = () => {
   const [nannies, setNannies] = useState<Nannie[]>([]);
   const [showMore, setShowMore] = useState<number | null>(null);
