@@ -55,10 +55,11 @@ const NanniesPage = () => {
       <Filters />
 
       <ul className={css.teacherList}>
-        {nannies.slice(0, visibleCount).map((nanny) => (
+        {nannies.slice(0, visibleCount).map((nanny, index) => (
           <NannieCard
             key={nanny.name}
             nanny={nanny}
+            index={index}
             showMore={showMore}
             toggleReadMore={toggleReadMore}
           />

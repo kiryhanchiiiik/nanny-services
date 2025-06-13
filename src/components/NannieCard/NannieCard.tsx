@@ -24,13 +24,17 @@ interface Nannie {
 
 interface Props {
   nanny: Nannie;
+  index: number;
   showMore: number | null;
   toggleReadMore: (index: number) => void;
 }
 
-const NannieCard: React.FC<Props> = ({ nanny, showMore, toggleReadMore }) => {
-  const index = nanny.name.length;
-
+const NannieCard: React.FC<Props> = ({
+  nanny,
+  index,
+  showMore,
+  toggleReadMore,
+}) => {
   const getAge = (birthDateString: string): number => {
     const birthDate = new Date(birthDateString);
     const today = new Date();
