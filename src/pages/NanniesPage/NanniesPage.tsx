@@ -28,6 +28,7 @@ interface Nannie {
 const NanniesPage = () => {
   const [nannies, setNannies] = useState<Nannie[]>([]);
   const [showMore, setShowMore] = useState<number | null>(null);
+  const [visibleCount, setVisibleCount] = useState(3);
 
   useEffect(() => {
     const fetchNannies = async () => {
@@ -44,6 +45,9 @@ const NanniesPage = () => {
   const toggleReadMore = (index: number) => {
     setShowMore((prev) => (prev === index ? null : index));
   };
+  const loadMore = () => {
+    setVisibleCount((prev) => prev + 3);
+  };
 
   return (
     <section className={css.nannies}>
@@ -51,7 +55,7 @@ const NanniesPage = () => {
       <Filters />
 
       <ul className={css.teacherList}>
-        {nannies.map((nanny) => (
+        {nannies.slice(0, visibleCount).map((nanny) => (
           <NannieCard
             key={nanny.name}
             nanny={nanny}
@@ -60,6 +64,14 @@ const NanniesPage = () => {
           />
         ))}
       </ul>
+
+      {visibleCount < nannies.length && (
+        <div className={css.loadMoreWrapper}>
+          <button className={css.loadMoreBtn} onClick={loadMore}>
+            Load more
+          </button>
+        </div>
+      )}
     </section>
   );
 };
