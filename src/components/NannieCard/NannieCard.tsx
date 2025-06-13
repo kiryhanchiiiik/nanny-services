@@ -11,7 +11,7 @@ interface Nannie {
   about: string;
   avatar_url: string;
   birthday: string;
-  characters: string;
+  characters: string[];
   education: string;
   experience: string;
   kids_age: string;
@@ -30,6 +30,17 @@ interface Props {
 
 const NannieCard: React.FC<Props> = ({ nanny, showMore, toggleReadMore }) => {
   const index = nanny.name.length;
+
+  const getAge = (birthDateString: string): number => {
+    const birthDate = new Date(birthDateString);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  };
 
   return (
     <li className={css.teachersContainerItem}>
@@ -94,19 +105,33 @@ const NannieCard: React.FC<Props> = ({ nanny, showMore, toggleReadMore }) => {
           </div>
 
           <div className={css.teacherInfo}>
-            <div className={css.teacherInfoContainer}>
-              <span className={css.spanWord}>Education:</span>
-              <p className={css.infoWrapper}>{nanny.education}</p>
-            </div>
-
-            <div className={css.teacherInfoContainer}>
-              <span className={css.spanWord}>Experience:</span>
-              <p className={css.infoWrapper}>{nanny.experience}</p>
-            </div>
-
-            <div className={css.teacherInfoContainer}>
-              <span className={css.spanWord}>Location:</span>
-              <p className={css.infoWrapper}>{nanny.location}</p>
+            <div className={css.teacherInfoWrapperFlex}>
+              <div className={css.teacherInfoContainer}>
+                <span className={css.spanWordSkills}>Age:</span>
+                <p className={css.infoWrapperSkills}>
+                  {getAge(nanny.birthday)}
+                </p>
+              </div>
+              <div className={css.teacherInfoContainer}>
+                <span className={css.spanWordSkills}>Experience:</span>
+                <p className={css.infoWrapperSkills}>{nanny.experience}</p>
+              </div>
+              <div className={css.teacherInfoContainer}>
+                <span className={css.spanWordSkills}>Kids age:</span>
+                <p className={css.infoWrapperSkills}>{nanny.kids_age}</p>
+              </div>
+              <div className={css.teacherInfoContainer}>
+                <span className={css.spanWordSkills}>Characters:</span>
+                <p className={css.infoWrapperSkills}>
+                  {nanny.characters
+                    .map((char) => char.charAt(0).toUpperCase() + char.slice(1))
+                    .join(", ")}
+                </p>
+              </div>
+              <div className={css.teacherInfoContainer}>
+                <span className={css.spanWordSkills}>Education:</span>
+                <p className={css.infoWrapperSkills}>{nanny.education}</p>
+              </div>
             </div>
 
             <p className={css.moreInfoDesc}>{nanny.about}</p>
@@ -125,23 +150,42 @@ const NannieCard: React.FC<Props> = ({ nanny, showMore, toggleReadMore }) => {
                 <ul className={css.moreInfoList}>
                   {nanny.reviews.map((review, idx) => (
                     <li key={idx}>
-                      <div className={css.moreInfoItem}>
-                        <div>
-                          <span className={css.spanWord}>
-                            {review.reviewer}
-                          </span>
-                          <p className={css.infoWrapper}>
-                            <svg width={16} height={16}>
-                              <use href={`${sprite}#star`}></use>
-                            </svg>{" "}
-                            {review.rating}.0
-                          </p>
+                      <div className={css.moreInfoWrapper}>
+                        <div className={css.moreInfoItem}>
+                          <div className={css.letterIcon}>
+                            {review.reviewer.charAt(0)}
+                          </div>
+                          <div>
+                            <span className={css.spanWord}>
+                              {review.reviewer}
+                            </span>
+                            <p className={css.infoWrapperRating}>
+                              <svg width={16} height={16}>
+                                <use href={`${sprite}#star`}></use>
+                              </svg>{" "}
+                              {review.rating}.0
+                            </p>
+                          </div>
                         </div>
+                        <p className={css.infoWrapperComment}>
+                          {review.comment}
+                        </p>
                       </div>
-                      <p className={css.infoWrapper}>{review.comment}</p>
                     </li>
                   ))}
                 </ul>
+              </div>
+            )}
+
+            {showMore === index && (
+              <div>
+                <button
+                  type="button"
+                  className={css.bookBtn}
+                  // onClick={() => onBookClick(teacher)}
+                >
+                  Make an appointment
+                </button>
               </div>
             )}
           </div>
