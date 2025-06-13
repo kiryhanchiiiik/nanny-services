@@ -53,7 +53,6 @@ const NannieCard: React.FC<Props> = ({ nanny, showMore, toggleReadMore }) => {
               <p>Nanny</p>
               <h3>{nanny.name}</h3>
             </div>
-            {/* {} */}
             <div className={css.wrapperImgAndAchieve}>
               <div className={css.teacherAchieve}>
                 <p className={css.flexGap}>
@@ -92,7 +91,6 @@ const NannieCard: React.FC<Props> = ({ nanny, showMore, toggleReadMore }) => {
                 </button>
               </div>
             </div>
-            {/* {} */}
           </div>
 
           <div className={css.teacherInfo}>

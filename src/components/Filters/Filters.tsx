@@ -51,7 +51,7 @@ const Filters = () => {
           className={css.selectButton}
           onClick={handleToggle}
         >
-          {selectedFilter || "Levels"}
+          {selectedFilter || "Select filter"}
           <div className={`${css.arrow} ${isOpen ? css.arrowUp : ""}`}>
             <svg className={css.svg} width="12" height="12">
               <use href={`${sprite}#down`} />
