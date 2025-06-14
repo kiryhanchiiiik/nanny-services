@@ -27,6 +27,7 @@ interface Props {
   index: number;
   showMore: number | null;
   toggleReadMore: (index: number) => void;
+  onBookClick: (nanny: Nannie) => void;
 }
 
 const NannieCard: React.FC<Props> = ({
@@ -34,6 +35,7 @@ const NannieCard: React.FC<Props> = ({
   index,
   showMore,
   toggleReadMore,
+  onBookClick,
 }) => {
   const getAge = (birthDateString: string): number => {
     const birthDate = new Date(birthDateString);
@@ -186,7 +188,7 @@ const NannieCard: React.FC<Props> = ({
                 <button
                   type="button"
                   className={css.bookBtn}
-                  // onClick={() => onBookClick(teacher)}
+                  onClick={() => onBookClick(nanny)}
                 >
                   Make an appointment
                 </button>

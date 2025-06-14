@@ -4,6 +4,7 @@ import Filters from "../../components/Filters/Filters";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../api/axiosInstance";
 import NannieCard from "../../components/NannieCard/NannieCard";
+import BookingModal from "../../components/BookingModal/BookingModal";
 
 interface Review {
   comment: string;
@@ -27,6 +28,7 @@ interface Nannie {
 }
 const NanniesPage = () => {
   const [nannies, setNannies] = useState<Nannie[]>([]);
+  const [selectedNanny, setSelectedNanny] = useState<Nannie | null>(null);
   const [showMore, setShowMore] = useState<number | null>(null);
   const [visibleCount, setVisibleCount] = useState(3);
 
@@ -62,6 +64,7 @@ const NanniesPage = () => {
             index={index}
             showMore={showMore}
             toggleReadMore={toggleReadMore}
+            onBookClick={(nanny) => setSelectedNanny(nanny)}
           />
         ))}
       </ul>
@@ -72,6 +75,13 @@ const NanniesPage = () => {
             Load more
           </button>
         </div>
+      )}
+
+      {selectedNanny && (
+        <BookingModal
+          nanny={selectedNanny}
+          onClose={() => setSelectedNanny(null)}
+        />
       )}
     </section>
   );
