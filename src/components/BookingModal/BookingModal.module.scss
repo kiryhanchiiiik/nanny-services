@@ -35,57 +35,6 @@
   font-size: 16px;
 }
 
-.radioContainer {
-  h2 {
-    margin-bottom: 20px;
-  }
-}
-
-.radioGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 40px;
-}
-.radioLabel {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  position: relative;
-
-  input {
-    display: none;
-  }
-}
-
-.customRadio {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid #d1d1d1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: border-color 0.3s ease;
-}
-
-.radioDot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: transparent;
-  transition: background-color 0.3s ease;
-}
-
-input:checked + .customRadio {
-  border-color: #9fb7ce;
-
-  .radioDot {
-    background-color: #9fb7ce;
-  }
-}
-
 .input {
   border: 1px solid rgba(18, 20, 23, 0.1);
   border-radius: 12px;
@@ -138,4 +87,9 @@ input::placeholder {
     font-weight: 500;
     font-size: 0.875rem;
   }
+}
+
+.flexWrapper {
+  display: flex;
+  gap: 8px;
 }

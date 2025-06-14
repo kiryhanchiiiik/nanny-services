@@ -1,15 +1,19 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import Modal from "../Modal/Modal";
 import css from "./BookingModal.module.scss";
+import TimePicker from "../TimePicker/TimePicker";
 
 interface BookScheme {
-  reason: string;
-  name: string;
-  email: string;
+  address: string;
   phone: string;
+  childAge: string;
+  email: string;
+  parentName: string;
+  comment: string;
+  meetingTime: string;
 }
 
 interface Nannie {
@@ -22,17 +26,15 @@ interface Props {
 }
 
 const validationSchema = Yup.object().shape({
-  reason: Yup.string().required("Please select a reason"),
-  name: Yup.string()
-    .min(3, "Too short!")
-    .max(20, "Too long!")
-    .required("Required!"),
-  email: Yup.string()
-    .email("Email must be a valid format")
-    .required("Required!"),
+  address: Yup.string().required("Required!"),
   phone: Yup.string()
     .matches(/^\+?[0-9\s\-]{7,15}$/, "Enter a valid phone number")
     .required("Required!"),
+  childAge: Yup.string().required("Required!"),
+  email: Yup.string().email("Invalid email").required("Required!"),
+  parentName: Yup.string().required("Required!"),
+  comment: Yup.string(),
+  meetingTime: Yup.string().required("Select a meeting time"),
 });
 
 const BookingModal = ({ nanny, onClose }: Props) => {
@@ -41,13 +43,17 @@ const BookingModal = ({ nanny, onClose }: Props) => {
     handleSubmit,
     formState: { errors },
     reset,
+    control,
   } = useForm<BookScheme>({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      reason: "",
-      name: "",
+      address: "",
+      phone: "+380",
+      childAge: "00:00",
       email: "",
-      phone: "",
+      parentName: "",
+      comment: "",
+      meetingTime: "",
     },
   });
 
@@ -81,17 +87,78 @@ const BookingModal = ({ nanny, onClose }: Props) => {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className={css.formGroup}>
-            <label>
-              Name
-              {errors.name && (
-                <span className={css.error}> - {errors.name.message}</span>
+          <div className={css.flexWrapper}>
+            <div className={css.formGroup}>
+              <label>
+                Address
+                {errors.address && (
+                  <span className={css.error}> - {errors.address.message}</span>
+                )}
+              </label>
+              <input
+                className={css.input}
+                {...register("address")}
+                placeholder="Address"
+              />
+            </div>
+
+            <div className={css.formGroup}>
+              <label>
+                Phone
+                {errors.phone && (
+                  <span className={css.error}> - {errors.phone.message}</span>
+                )}
+              </label>
+              <input
+                className={css.input}
+                {...register("phone")}
+                placeholder="+380"
+              />
+            </div>
+          </div>
+
+          <div className={css.flexWrapper}>
+            <div className={css.formGroup}>
+              <label>
+                Child's age
+                {errors.childAge && (
+                  <span className={css.error}>
+                    {" "}
+                    - {errors.childAge.message}
+                  </span>
+                )}
+              </label>
+              <input
+                type="number"
+                className={css.input}
+                {...register("childAge")}
+                placeholder="Age in years"
+                min="0"
+                max="18"
+              />
+            </div>
+
+            <Controller
+              name="meetingTime"
+              control={control}
+              render={({ field }) => (
+                <div className={css.formGroup}>
+                  <label>
+                    Meeting time
+                    {errors.meetingTime && (
+                      <span className={css.error}>
+                        {" "}
+                        - {errors.meetingTime.message}
+                      </span>
+                    )}
+                  </label>
+                  <TimePicker
+                    value={field.value}
+                    onChange={field.onChange}
+                    error={errors.meetingTime?.message}
+                  />
+                </div>
               )}
-            </label>
-            <input
-              className={css.input}
-              {...register("name")}
-              placeholder="Full Name"
             />
           </div>
 
@@ -111,15 +178,32 @@ const BookingModal = ({ nanny, onClose }: Props) => {
 
           <div className={css.formGroup}>
             <label>
-              Phone
-              {errors.phone && (
-                <span className={css.error}> - {errors.phone.message}</span>
+              Father's or mother's name
+              {errors.parentName && (
+                <span className={css.error}>
+                  {" "}
+                  - {errors.parentName.message}
+                </span>
               )}
             </label>
             <input
               className={css.input}
-              {...register("phone")}
-              placeholder="Phone number"
+              {...register("parentName")}
+              placeholder="Full Name"
+            />
+          </div>
+
+          <div className={css.formGroup}>
+            <label>
+              Comment
+              {errors.comment && (
+                <span className={css.error}> - {errors.comment.message}</span>
+              )}
+            </label>
+            <textarea
+              className={css.input}
+              {...register("comment")}
+              placeholder="Comment..."
             />
           </div>
 
