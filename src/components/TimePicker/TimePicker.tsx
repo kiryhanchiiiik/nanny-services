@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import sprite from "../../img/sprite.svg";
 import css from "./TimePicker.module.scss";
 
 interface TimePickerProps {
@@ -26,7 +27,12 @@ const TimePicker = ({ value, onChange, error }: TimePickerProps) => {
   return (
     <div ref={ref} className={css.container}>
       <div onClick={() => setOpen(!open)} className={css.inputBox}>
-        {value || "00:00"} <span className={css.icon}>🕒</span>
+        {value || "00:00"}{" "}
+        <span className={css.icon}>
+          <svg width={23} height={23}>
+            <use href={`${sprite}#clock`}></use>
+          </svg>
+        </span>
       </div>
 
       {open && (

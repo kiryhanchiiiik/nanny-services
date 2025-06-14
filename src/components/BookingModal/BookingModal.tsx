@@ -1,6 +1,7 @@
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import Modal from "../Modal/Modal";
 import css from "./BookingModal.module.scss";
@@ -33,8 +34,8 @@ const validationSchema = Yup.object().shape({
   childAge: Yup.string().required("Required!"),
   email: Yup.string().email("Invalid email").required("Required!"),
   parentName: Yup.string().required("Required!"),
-  comment: Yup.string(),
-  meetingTime: Yup.string().required("Select a meeting time"),
+  meetingTime: Yup.string().required("Select a time"),
+  comment: Yup.string().default(""),
 });
 
 const BookingModal = ({ nanny, onClose }: Props) => {
@@ -49,7 +50,7 @@ const BookingModal = ({ nanny, onClose }: Props) => {
     defaultValues: {
       address: "",
       phone: "+380",
-      childAge: "00:00",
+      childAge: "",
       email: "",
       parentName: "",
       comment: "",
@@ -59,7 +60,7 @@ const BookingModal = ({ nanny, onClose }: Props) => {
 
   const onSubmit = async (data: BookScheme) => {
     console.log(data);
-    toast.success("Booking successful!");
+    toast.success("Your request has been sent!");
     reset();
     onClose();
   };
@@ -129,12 +130,10 @@ const BookingModal = ({ nanny, onClose }: Props) => {
                 )}
               </label>
               <input
-                type="number"
+                type="text"
                 className={css.input}
                 {...register("childAge")}
                 placeholder="Age in years"
-                min="0"
-                max="18"
               />
             </div>
 
@@ -152,17 +151,13 @@ const BookingModal = ({ nanny, onClose }: Props) => {
                       </span>
                     )}
                   </label>
-                  <TimePicker
-                    value={field.value}
-                    onChange={field.onChange}
-                    error={errors.meetingTime?.message}
-                  />
+                  <TimePicker value={field.value} onChange={field.onChange} />
                 </div>
               )}
             />
           </div>
 
-          <div className={css.formGroup}>
+          <div className={css.formGroupFlex}>
             <label>
               Email
               {errors.email && (
@@ -170,15 +165,15 @@ const BookingModal = ({ nanny, onClose }: Props) => {
               )}
             </label>
             <input
-              className={css.input}
+              className={`${css.input} ${css.inputFlex}`}
               {...register("email")}
               placeholder="Email"
             />
           </div>
 
-          <div className={css.formGroup}>
+          <div className={css.formGroupFlex}>
             <label>
-              Father's or mother's name
+              Name
               {errors.parentName && (
                 <span className={css.error}>
                   {" "}
@@ -187,13 +182,13 @@ const BookingModal = ({ nanny, onClose }: Props) => {
               )}
             </label>
             <input
-              className={css.input}
+              className={`${css.input} ${css.inputFlex}`}
               {...register("parentName")}
-              placeholder="Full Name"
+              placeholder="Father's or mother's name"
             />
           </div>
 
-          <div className={css.formGroup}>
+          <div className={css.formGroupFlex}>
             <label>
               Comment
               {errors.comment && (
@@ -201,7 +196,7 @@ const BookingModal = ({ nanny, onClose }: Props) => {
               )}
             </label>
             <textarea
-              className={css.input}
+              className={`${css.input} ${css.inputFlex} ${css.textarea}`}
               {...register("comment")}
               placeholder="Comment..."
             />

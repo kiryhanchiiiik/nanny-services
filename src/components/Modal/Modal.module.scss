@@ -11,14 +11,6 @@
   z-index: 1000;
 }
 
-.modal {
-  background: white;
-  padding: 64px;
-  border-radius: 30px;
-  position: relative;
-  width: 556px;
-}
-
 .closeBtn {
   position: absolute;
   top: 20px;
@@ -28,7 +20,7 @@
 
 .modal {
   background: white;
-  padding: 64px;
+  padding: 50px;
   border-radius: 30px;
   position: relative;
   width: 90%;
@@ -38,11 +30,11 @@
 }
 
 .modal {
-  scrollbar-width: 20px;
+  scrollbar-width: 10px;
   scrollbar-color: #f03f3b transparent;
 
   &::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
   }
 
   &::-webkit-scrollbar-track {
@@ -52,7 +44,7 @@
   &::-webkit-scrollbar-thumb {
     background-color: #f03f3b;
     border-radius: 10px;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     background-clip: content-box;
   }
 

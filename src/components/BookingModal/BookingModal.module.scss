@@ -10,6 +10,10 @@
   line-height: 125%;
   color: rgba(17, 16, 28, 0.5);
 }
+.formGroupFlex {
+  display: flex;
+  flex-direction: column;
+}
 
 .imageTextContainer {
   display: flex;
@@ -41,14 +45,24 @@
   padding-left: 18px;
   padding-top: 16px;
   padding-bottom: 16px;
-  width: 100%;
+  width: 232px;
   margin-bottom: 18px;
 }
 
 input::placeholder {
   color: #121417;
 }
+textarea::placeholder {
+  color: #121417;
+}
 
+.inputFlex {
+  width: 107%;
+}
+
+.textarea {
+  height: 116px;
+}
 .error {
   font-weight: 500;
   line-height: 1;
@@ -57,7 +71,7 @@ input::placeholder {
 }
 
 .bookBtn {
-  width: 100%;
+  width: 107%;
   border-radius: 30px;
   padding-top: 16px;
   padding-bottom: 16px;

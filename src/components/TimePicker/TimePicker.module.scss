@@ -4,19 +4,19 @@
 }
 
 .inputBox {
+  border: 1px solid rgba(18, 20, 23, 0.1);
+  border-radius: 12px;
+  padding-left: 18px;
+  padding-top: 16px;
+  padding-bottom: 16px;
   width: 232px;
-  border: 1px solid #ccc;
-  padding: 8px 12px;
-  border-radius: 8px;
-  background: #fff;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 .icon {
-  margin-left: 8px;
+  margin-right: 16px;
 }
 
 .dropdown {
