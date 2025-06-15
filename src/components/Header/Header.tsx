@@ -5,6 +5,10 @@ import { useState } from "react";
 import Modal from "../Modal/Modal";
 import RegisterForm from "../RegisterForm/RegisterForm";
 import LoginForm from "../LoginForm/LoginForm";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../../redux/store";
+import { logoutUser } from "../../redux/auth/authSlice";
+import sprite from "../../img/sprite.svg";
 
 type HeaderProps = {
   fullWidth?: boolean;
@@ -15,6 +19,8 @@ const buildLinkClass = ({ isActive }: { isActive: boolean }) =>
   clsx(css.linkWrapper, isActive && css.active);
 
 const Header = ({ fullWidth = false, theme = "red" }: HeaderProps) => {
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.auth.user);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
@@ -23,6 +29,10 @@ const Header = ({ fullWidth = false, theme = "red" }: HeaderProps) => {
 
   const openRegisterModal = () => setIsModalOpen(true);
   const closeRegisterModal = () => setIsModalOpen(false);
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
 
   return (
     <header
@@ -50,14 +60,28 @@ const Header = ({ fullWidth = false, theme = "red" }: HeaderProps) => {
               </NavLink>
             </li>
           </ul>
-          <div className={css.btnContainer}>
-            <button className={css.loginBtn} onClick={openLoginModal}>
-              Log In
-            </button>
-            <button className={css.regBtn} onClick={openRegisterModal}>
-              Registration
-            </button>
-          </div>
+          {user ? (
+            <div className={css.userBox}>
+              <div className={css.svgContainer}>
+                <svg className={css.userIcon} width={24} height={24}>
+                  <use href={`${sprite}#user`} />
+                </svg>
+              </div>
+              <span className={css.userName}>{user.displayName}</span>
+              <button className={css.logoutBtn} onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div className={css.btnContainer}>
+              <button className={css.loginBtn} onClick={openLoginModal}>
+                Log In
+              </button>
+              <button className={css.regBtn} onClick={openRegisterModal}>
+                Registration
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
