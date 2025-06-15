@@ -1,11 +1,13 @@
 import { useState } from "react";
-// import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import sprite from "../../img/sprite.svg";
 import css from "./RegisterForm.module.scss";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../redux/auth/authSlice";
+import type { AppDispatch } from "../../redux/store";
 
 interface RegistrationFormValues {
   name: string;
@@ -25,7 +27,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const RegisterForm = ({ onSuccess }: { onSuccess: () => void }) => {
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
@@ -41,13 +43,14 @@ const RegisterForm = ({ onSuccess }: { onSuccess: () => void }) => {
 
   const onSubmit = async (data: RegistrationFormValues) => {
     try {
-      //   const { name, email, password } = data;
-      //   await dispatch(registerUser(email, password, name) as any);
-      console.log(data);
+      const { name, email, password } = data;
+
+      await dispatch(registerUser({ email, password, name }) as any);
+
       reset();
       onSuccess();
     } catch (err) {
-      console.error("Login error:", err);
+      console.error("Registration error:", err);
 
       toast.error("Email already in use", {
         position: "top-right",

@@ -4,10 +4,13 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 // import type { AppDispatch } from "../../redux/store";
-// import { loginUser } from "../../redux/auth/authOps";
+
 import * as Yup from "yup";
 import sprite from "../../img/sprite.svg";
 import css from "./LoginForm.module.scss";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../redux/store";
+import { loginUser } from "../../redux/auth/authSlice";
 
 interface LoginFormValues {
   email: string;
@@ -22,7 +25,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const LoginForm = ({ onSuccess }: { onSuccess: () => void }) => {
-  //   const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -39,7 +42,7 @@ const LoginForm = ({ onSuccess }: { onSuccess: () => void }) => {
 
   const onSubmit = async (data: LoginFormValues) => {
     try {
-      //   await dispatch(loginUser(data.email, data.password));
+      await dispatch(loginUser({ email: data.email, password: data.password }));
       console.log(data);
       reset();
       onSuccess();
