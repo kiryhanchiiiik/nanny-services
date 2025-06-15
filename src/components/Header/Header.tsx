@@ -6,7 +6,7 @@ import Modal from "../Modal/Modal";
 import RegisterForm from "../RegisterForm/RegisterForm";
 import LoginForm from "../LoginForm/LoginForm";
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../../redux/store";
+import type { RootState, AppDispatch } from "../../redux/store";
 import { logoutUser } from "../../redux/auth/authSlice";
 import sprite from "../../img/sprite.svg";
 
@@ -19,7 +19,7 @@ const buildLinkClass = ({ isActive }: { isActive: boolean }) =>
   clsx(css.linkWrapper, isActive && css.active);
 
 const Header = ({ fullWidth = false, theme = "red" }: HeaderProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.auth.user);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
