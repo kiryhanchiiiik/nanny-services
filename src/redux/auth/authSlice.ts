@@ -17,12 +17,14 @@ interface AuthState {
   user: User | null;
   loading: boolean;
   error: string | null;
+  isAuthReady: boolean;
 }
 
 const initialState: AuthState = {
   user: null,
   loading: false,
   error: null,
+  isAuthReady: false,
 };
 
 export const registerUser = createAsyncThunk<
@@ -61,6 +63,8 @@ export const loginUser = createAsyncThunk<
       email,
       password
     );
+
+    localStorage.setItem("user", JSON.stringify(userCredential));
     return userCredential.user;
   } catch (error: any) {
     return rejectWithValue(error.message);
@@ -72,6 +76,8 @@ export const logoutUser = createAsyncThunk<void, void, { rejectValue: string }>(
   async (_, { rejectWithValue }) => {
     try {
       await signOut(auth);
+
+      localStorage.removeItem("user");
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -81,7 +87,12 @@ export const logoutUser = createAsyncThunk<void, void, { rejectValue: string }>(
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setUser: (state, action: PayloadAction<User | null>) => {
+      state.user = action.payload;
+      state.isAuthReady = true;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Register
@@ -119,4 +130,5 @@ const authSlice = createSlice({
   },
 });
 
+export const { setUser } = authSlice.actions;
 export default authSlice.reducer;

@@ -4,8 +4,10 @@ import HomePage from "./pages/HomePage/HomePage";
 import "./App.scss";
 import NanniesPage from "./pages/NanniesPage/NanniesPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
+import { useAuthListener } from "./hooks/useAuthListener";
 
 function App() {
+  useAuthListener();
   return (
     <main className="container">
       <Routes>
