@@ -1,5 +1,8 @@
 import css from "./NannieCard.module.scss";
 import sprite from "../../img/sprite.svg";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../redux/store";
+import { toggleFavorite } from "../../redux/favorites/favoritesSlice";
 
 interface Review {
   comment: string;
@@ -37,6 +40,18 @@ const NannieCard: React.FC<Props> = ({
   toggleReadMore,
   onBookClick,
 }) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const favorites = useSelector(
+    (state: RootState) => state.favorites.favorites
+  );
+
+  const isFavorite = favorites.some((fav) => fav.name === nanny.name);
+
+  const handleFavoriteClick = () => {
+    dispatch(toggleFavorite(nanny));
+  };
+
   const getAge = (birthDateString: string): number => {
     const birthDate = new Date(birthDateString);
     const today = new Date();
@@ -98,12 +113,13 @@ const NannieCard: React.FC<Props> = ({
                 </p>
               </div>
               <div className={css.ImgHeart}>
-                <button
-                  type="button"
-                  // onClick={() => toggleFavorite(teacher, index)}
-                >
+                <button type="button" onClick={handleFavoriteClick}>
                   <svg width={27} height={27}>
-                    <use href={`${sprite}#${"heart"}`}></use>
+                    <use
+                      href={`${sprite}#${
+                        isFavorite ? "filled-heart" : "heart"
+                      }`}
+                    ></use>
                   </svg>
                 </button>
               </div>
