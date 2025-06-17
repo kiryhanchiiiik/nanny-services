@@ -1,8 +1,12 @@
+import React from "react";
 import css from "./NannieCard.module.scss";
 import sprite from "../../img/sprite.svg";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../redux/store";
-import { toggleFavorite } from "../../redux/favorites/favoritesSlice";
+import {
+  addFavorite,
+  removeFavorite,
+} from "../../redux/favorites/favoritesSlice";
 
 interface Review {
   comment: string;
@@ -42,14 +46,18 @@ const NannieCard: React.FC<Props> = ({
 }) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const favorites = useSelector(
-    (state: RootState) => state.favorites.favorites
-  );
+  const favorites = useSelector((state: RootState) => state.favorites.items);
+
+  const email = useSelector((state: RootState) => state.auth.user?.email ?? "");
 
   const isFavorite = favorites.some((fav) => fav.name === nanny.name);
 
   const handleFavoriteClick = () => {
-    dispatch(toggleFavorite(nanny));
+    if (isFavorite) {
+      dispatch(removeFavorite({ nanny, email }));
+    } else {
+      dispatch(addFavorite({ nanny, email }));
+    }
   };
 
   const getAge = (birthDateString: string): number => {

@@ -6,7 +6,7 @@ interface Review {
   reviewer: string;
 }
 
-interface Nannie {
+export interface Nannie {
   about: string;
   avatar_url: string;
   birthday: string;
@@ -21,31 +21,66 @@ interface Nannie {
   reviews: Review[];
 }
 
-interface FavoriteState {
-  favorites: Nannie[];
+interface FavoritesState {
+  items: Nannie[];
 }
 
-const initialState: FavoriteState = {
-  favorites: [],
+const saveToLocalStorage = (email: string, items: Nannie[]) => {
+  try {
+    localStorage.setItem(`favorites_${email}`, JSON.stringify(items));
+  } catch (e) {
+    console.error("Failed to save favorites", e);
+  }
 };
 
-const favoriteSlice = createSlice({
+const initialState: FavoritesState = {
+  items: [],
+};
+
+interface AddFavoritePayload {
+  nanny: Nannie;
+  email: string;
+}
+
+interface RemoveFavoritePayload {
+  nanny: Nannie;
+  email: string;
+}
+
+interface SetFavoritesPayload {
+  items: Nannie[];
+}
+
+const favoritesSlice = createSlice({
   name: "favorites",
   initialState,
   reducers: {
-    toggleFavorite: (state, action: PayloadAction<Nannie>) => {
-      const nanny = action.payload;
-      const exists = state.favorites.find((fav) => fav.name === nanny.name);
-      if (exists) {
-        state.favorites = state.favorites.filter(
-          (fav) => fav.name !== nanny.name
-        );
-      } else {
-        state.favorites.push(nanny);
+    setFavorites(state, action: PayloadAction<SetFavoritesPayload>) {
+      state.items = action.payload.items;
+    },
+    clearFavorites(state) {
+      state.items = [];
+    },
+    addFavorite(state, action: PayloadAction<AddFavoritePayload>) {
+      const { nanny, email } = action.payload;
+      const exists = state.items.find(
+        (t) => t.name === nanny.name && t.about === nanny.about
+      );
+      if (!exists) {
+        state.items.push(nanny);
+        saveToLocalStorage(email, state.items);
       }
+    },
+    removeFavorite(state, action: PayloadAction<RemoveFavoritePayload>) {
+      const { nanny, email } = action.payload;
+      state.items = state.items.filter(
+        (t) => !(t.name === nanny.name && t.about === nanny.about)
+      );
+      saveToLocalStorage(email, state.items);
     },
   },
 });
 
-export const { toggleFavorite } = favoriteSlice.actions;
-export default favoriteSlice.reducer;
+export const { addFavorite, removeFavorite, setFavorites, clearFavorites } =
+  favoritesSlice.actions;
+export default favoritesSlice.reducer;

@@ -5,14 +5,27 @@ import "./App.scss";
 import NanniesPage from "./pages/NanniesPage/NanniesPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import { useAuthListener } from "./hooks/useAuthListener";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "./redux/store";
 import Loader from "./components/Loader/Loader";
+import { useEffect } from "react";
+import { setFavorites } from "./redux/favorites/favoritesSlice";
 
 function App() {
   useAuthListener();
+  const dispatch = useDispatch();
 
+  const email = useSelector((state: RootState) => state.auth.user?.email ?? "");
   const isAuthReady = useSelector((state: RootState) => state.auth.isAuthReady);
+
+  useEffect(() => {
+    if (email) {
+      const savedFavorites = localStorage.getItem(`favorites_${email}`);
+      if (savedFavorites) {
+        dispatch(setFavorites({ items: JSON.parse(savedFavorites) }));
+      }
+    }
+  }, [email, dispatch]);
 
   if (!isAuthReady) return <Loader />;
 
