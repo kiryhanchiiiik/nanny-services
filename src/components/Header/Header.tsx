@@ -59,6 +59,13 @@ const Header = ({ fullWidth = false, theme = "red" }: HeaderProps) => {
                 Nannies <span className={css.dot}></span>
               </NavLink>
             </li>
+            <li>
+              {user && (
+                <NavLink to="/favorites" className={buildLinkClass}>
+                  Favorites <span className={css.dot}></span>
+                </NavLink>
+              )}
+            </li>
           </ul>
           {user ? (
             <div className={css.userBox}>

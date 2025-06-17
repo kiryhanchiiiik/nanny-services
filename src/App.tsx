@@ -10,6 +10,8 @@ import type { RootState } from "./redux/store";
 import Loader from "./components/Loader/Loader";
 import { useEffect } from "react";
 import { setFavorites } from "./redux/favorites/favoritesSlice";
+import ProtectedRoute from "./ProtectedRoute";
+import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 
 function App() {
   useAuthListener();
@@ -34,6 +36,15 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/nannies" element={<NanniesPage />}></Route>
+        <Route
+          path="/favorites"
+          element={
+            <ProtectedRoute
+              component={<FavoritesPage />}
+              redirectTo="/"
+            ></ProtectedRoute>
+          }
+        />
         <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>
       <ToastContainer />
