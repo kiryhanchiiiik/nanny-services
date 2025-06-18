@@ -1,10 +1,11 @@
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../redux/store";
 import NannieCard from "../../components/NannieCard/NannieCard";
-import css from "./FavoritesPage.module.scss";
-import { useState } from "react";
 import BookingModal from "../../components/BookingModal/BookingModal";
+import css from "./FavoritesPage.module.scss";
+import type { RootState } from "../../redux/store";
+import { setFavorites } from "../../redux/favorites/favoritesSlice";
 
 interface Review {
   comment: string;
@@ -30,11 +31,33 @@ interface Nannie {
 const FavoritesPage = () => {
   const [showMore, setShowMore] = useState<number | null>(null);
   const [selectedNanny, setSelectedNanny] = useState<Nannie | null>(null);
+
+  const user = useSelector((state: RootState) => state.auth.user);
+  const currentUserEmail = user?.email ?? "";
+
   const favorites = useSelector((state: RootState) => state.favorites.items);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!currentUserEmail) {
+      dispatch(setFavorites({ items: [] }));
+      return;
+    }
+
+    const storedFavorites = localStorage.getItem(
+      `favorites_${currentUserEmail}`
+    );
+    if (storedFavorites) {
+      dispatch(setFavorites({ items: JSON.parse(storedFavorites) }));
+    } else {
+      dispatch(setFavorites({ items: [] }));
+    }
+  }, [currentUserEmail, dispatch]);
 
   const toggleReadMore = (index: number) => {
     setShowMore((prev) => (prev === index ? null : index));
   };
+
   return (
     <section>
       <Header fullWidth theme="white" />
