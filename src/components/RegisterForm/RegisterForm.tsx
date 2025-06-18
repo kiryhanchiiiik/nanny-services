@@ -42,15 +42,17 @@ const RegisterForm = ({ onSuccess }: { onSuccess: () => void }) => {
   });
 
   const onSubmit = async (data: RegistrationFormValues) => {
-    try {
-      const { name, email, password } = data;
+    const { name, email, password } = data;
 
-      await dispatch(registerUser({ email, password, name }) as any);
+    const resultAction = await dispatch(
+      registerUser({ email, password, name })
+    );
 
+    if (registerUser.fulfilled.match(resultAction)) {
       reset();
       onSuccess();
-    } catch (err) {
-      console.error("Registration error:", err);
+    } else {
+      console.error("Registration error:", resultAction.payload);
 
       toast.error("Email already in use", {
         position: "top-right",

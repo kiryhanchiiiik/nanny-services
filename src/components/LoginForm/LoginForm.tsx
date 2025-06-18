@@ -41,13 +41,15 @@ const LoginForm = ({ onSuccess }: { onSuccess: () => void }) => {
   });
 
   const onSubmit = async (data: LoginFormValues) => {
-    try {
-      await dispatch(loginUser({ email: data.email, password: data.password }));
-      console.log(data);
+    const resultAction = await dispatch(
+      loginUser({ email: data.email, password: data.password })
+    );
+
+    if (loginUser.fulfilled.match(resultAction)) {
       reset();
       onSuccess();
-    } catch (err) {
-      console.error("Login error:", err);
+    } else {
+      console.error("Login error:", resultAction.payload);
 
       toast.error("Incorrect email or password", {
         position: "top-right",
