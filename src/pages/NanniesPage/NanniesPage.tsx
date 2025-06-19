@@ -26,8 +26,10 @@ interface Nannie {
   rating: number;
   reviews: Review[];
 }
+
 const NanniesPage = () => {
   const [nannies, setNannies] = useState<Nannie[]>([]);
+  const [filteredNannies, setFilteredNannies] = useState<Nannie[]>([]);
   const [selectedNanny, setSelectedNanny] = useState<Nannie | null>(null);
   const [showMore, setShowMore] = useState<number | null>(null);
   const [visibleCount, setVisibleCount] = useState(3);
@@ -37,6 +39,7 @@ const NanniesPage = () => {
       try {
         const response = await axiosInstance.get("/nannies.json");
         setNannies(response.data);
+        setFilteredNannies(response.data);
       } catch (err) {
         console.log(err);
       }
@@ -47,17 +50,54 @@ const NanniesPage = () => {
   const toggleReadMore = (index: number) => {
     setShowMore((prev) => (prev === index ? null : index));
   };
+
   const loadMore = () => {
     setVisibleCount((prev) => prev + 3);
+  };
+
+  const handleFilterChange = (filter: string) => {
+    const sorted = [...nannies];
+
+    switch (filter) {
+      case "a_to_z":
+        sorted.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case "z_to_a":
+        sorted.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case "less_than_10":
+        setFilteredNannies(nannies.filter((n) => n.price_per_hour < 10));
+        setVisibleCount(3);
+        return;
+      case "greater_than_10":
+        setFilteredNannies(nannies.filter((n) => n.price_per_hour >= 10));
+        setVisibleCount(3);
+        return;
+      case "popular":
+        sorted.sort((a, b) => b.rating - a.rating);
+        break;
+      case "not_popular":
+        sorted.sort((a, b) => a.rating - b.rating);
+        break;
+      case "show_all":
+        setFilteredNannies(nannies);
+        setVisibleCount(3);
+        return;
+      default:
+        break;
+    }
+
+    setFilteredNannies(sorted);
+    setVisibleCount(3);
   };
 
   return (
     <section className={css.nannies}>
       <Header fullWidth theme="white" />
-      <Filters />
+      <Filters onFilterChange={handleFilterChange} />
 
       <ul className={css.teacherList}>
-        {nannies.slice(0, visibleCount).map((nanny, index) => (
+        {filteredNannies.slice(0, visibleCount).map((nanny, index) => (
           <NannieCard
             key={nanny.name}
             nanny={nanny}
@@ -69,7 +109,7 @@ const NanniesPage = () => {
         ))}
       </ul>
 
-      {visibleCount < nannies.length && (
+      {visibleCount < filteredNannies.length && (
         <div className={css.loadMoreWrapper}>
           <button className={css.loadMoreBtn} onClick={loadMore}>
             Load more

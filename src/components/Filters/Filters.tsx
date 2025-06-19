@@ -2,14 +2,19 @@ import { useEffect, useRef, useState } from "react";
 import { axiosInstance } from "../../api/axiosInstance";
 import sprite from "../../img/sprite.svg";
 import css from "./Filters.module.scss";
+
 type FilterOption = {
   label: string;
   value: string;
 };
-const Filters = () => {
+
+type Props = {
+  onFilterChange: (filter: string) => void;
+};
+
+const Filters = ({ onFilterChange }: Props) => {
   const [filters, setFilters] = useState<FilterOption[] | null>(null);
   const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
-
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -67,6 +72,7 @@ const Filters = () => {
                 onClick={() => {
                   setSelectedFilter(filter.label);
                   setIsOpen(false);
+                  onFilterChange(filter.value);
                 }}
               >
                 {filter.label}
