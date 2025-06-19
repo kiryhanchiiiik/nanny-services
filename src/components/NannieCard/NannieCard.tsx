@@ -138,7 +138,9 @@ const NannieCard: React.FC<Props> = ({
             <div className={css.teacherInfoWrapperFlex}>
               <div className={css.teacherInfoContainer}>
                 <span className={css.spanWordSkills}>Age:</span>
-                <p className={css.infoWrapperSkills}>
+                <p
+                  className={`${css.infoWrapperSkills} ${css.infoWrapperSkillsUnderline}`}
+                >
                   {getAge(nanny.birthday)}
                 </p>
               </div>
@@ -193,7 +195,7 @@ const NannieCard: React.FC<Props> = ({
                               <svg width={16} height={16}>
                                 <use href={`${sprite}#star`}></use>
                               </svg>{" "}
-                              {review.rating}.0
+                              {Number(review.rating).toFixed(1)}
                             </p>
                           </div>
                         </div>

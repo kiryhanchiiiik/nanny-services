@@ -59,7 +59,7 @@ const FavoritesPage = () => {
   };
 
   return (
-    <section>
+    <section className={css.favorites}>
       <Header fullWidth theme="white" />
 
       <ul className={css.teacherList}>
