@@ -7,3 +7,11 @@
   gap: 32px;
   margin-top: 64px;
 }
+
+.clearFav {
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}

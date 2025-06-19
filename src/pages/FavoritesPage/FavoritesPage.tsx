@@ -61,20 +61,25 @@ const FavoritesPage = () => {
   return (
     <section className={css.favorites}>
       <Header fullWidth theme="white" />
-
-      <ul className={css.teacherList}>
-        {favorites.map((nanny, index) => (
-          <NannieCard
-            key={nanny.name}
-            nanny={nanny}
-            index={index}
-            showMore={showMore}
-            toggleReadMore={toggleReadMore}
-            onBookClick={(nanny) => setSelectedNanny(nanny)}
-          />
-        ))}
-      </ul>
-
+      {favorites.length === 0 ? (
+        <div className={css.clearFav}>
+          <h2>No Nannies Available</h2>
+          <p>Sorry, there are currently no nannies that match your criteria.</p>
+        </div>
+      ) : (
+        <ul className={css.teacherList}>
+          {favorites.map((nanny, index) => (
+            <NannieCard
+              key={nanny.name}
+              nanny={nanny}
+              index={index}
+              showMore={showMore}
+              toggleReadMore={toggleReadMore}
+              onBookClick={(nanny) => setSelectedNanny(nanny)}
+            />
+          ))}
+        </ul>
+      )}
       {selectedNanny && (
         <BookingModal
           nanny={selectedNanny}
