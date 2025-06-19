@@ -7,6 +7,7 @@ import {
   addFavorite,
   removeFavorite,
 } from "../../redux/favorites/favoritesSlice";
+import { Bounce, toast } from "react-toastify";
 
 interface Review {
   comment: string;
@@ -53,6 +54,18 @@ const NannieCard: React.FC<Props> = ({
   const isFavorite = favorites.some((fav) => fav.name === nanny.name);
 
   const handleFavoriteClick = () => {
+    if (!email) {
+      return toast.error("You need to be logged in to add favorites", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
     if (isFavorite) {
       dispatch(removeFavorite({ nanny, email }));
     } else {

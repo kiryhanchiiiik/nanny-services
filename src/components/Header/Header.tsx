@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../../redux/store";
 import { logoutUser } from "../../redux/auth/authSlice";
 import sprite from "../../img/sprite.svg";
+import { clearFavorites } from "../../redux/favorites/favoritesSlice";
 
 type HeaderProps = {
   fullWidth?: boolean;
@@ -32,6 +33,7 @@ const Header = ({ fullWidth = false, theme = "red" }: HeaderProps) => {
 
   const handleLogout = () => {
     dispatch(logoutUser());
+    dispatch(clearFavorites());
   };
 
   return (
